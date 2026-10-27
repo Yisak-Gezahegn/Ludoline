@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Ludoline",
+    "slug": "ludoline",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2D2B6E"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#2D2B6E"
+      },
+      "package": "com.ludoline.app",
+      "versionCode": 2,
+      "permissions": [
+        "android.permission.VIBRATE",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE"
+      ]
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ludoline.app",
+      "buildNumber": "1"
+    },
+    "extra": {
+      "apiUrl": "https://api.ludoline.com",
+      "socketUrl": "https://api.ludoline.com",
+      "eas": {
+        "projectId": "36867e80-fc81-4915-a0aa-ef0d1378d498"
+      }
+    },
+    "plugins": [
+      "expo-notifications",
+      "expo-secure-store",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "15.1"
+          }
+        }
+      ]
+    ],
+    "owner": "yisak_gezahegn"
+  }
+}

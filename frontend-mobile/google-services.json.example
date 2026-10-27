@@ -1,0 +1,31 @@
+{
+  "_comment": "Replace this file with your real google-services.json from Firebase Console",
+  "_note": "Rename this file to google-services.json after filling in your values",
+  "_howto": "1. Go to https://console.firebase.google.com  2. Create project 'Ludoline'  3. Add Android app with package 'com.ludoline.app'  4. Download google-services.json",
+  "project_info": {
+    "project_number": "YOUR_PROJECT_NUMBER",
+    "project_id": "ludoline-YOUR_ID",
+    "storage_bucket": "ludoline-YOUR_ID.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:YOUR_PROJECT_NUMBER:android:YOUR_APP_ID",
+        "android_client_info": {
+          "package_name": "com.ludoline.app"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "YOUR_FIREBASE_API_KEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
