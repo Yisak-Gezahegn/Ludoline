@@ -1,0 +1,34 @@
+{
+  "name": "ludoline-web",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "socket.io-client": "^4.7.4",
+    "axios": "^1.6.8",
+    "react-hot-toast": "^2.4.1",
+    "framer-motion": "^11.0.20",
+    "zustand": "^4.5.2",
+    "react-i18next": "^14.1.0",
+    "i18next": "^23.10.1",
+    "react-confetti": "^6.1.0",
+    "react-countdown": "^2.3.5",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "eslint src"
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": ["last 1 chrome version", "last 1 firefox version"]
+  },
+  "proxy": "http://localhost:3001"
+}

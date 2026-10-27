@@ -1,0 +1,36 @@
+{
+  "name": "ludoline-backend",
+  "version": "1.0.0",
+  "description": "Ludoline - Online Ludo Game Backend",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "migrate": "node migrations/run.js",
+    "lint": "eslint src/**/*.js"
+  },
+  "dependencies": {
+    "fastify": "^4.26.0",
+    "@fastify/cors": "^9.0.1",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/rate-limit": "^9.1.0",
+    "@fastify/jwt": "^8.0.1",
+    "@fastify/multipart": "^8.1.0",
+    "@fastify/static": "^7.0.1",
+    "socket.io": "^4.7.4",
+    "pg": "^8.11.5",
+    "redis": "^4.6.13",
+    "bcrypt": "^5.1.1",
+    "uuid": "^9.0.1",
+    "dotenv": "^16.4.5",
+    "axios": "^1.6.8",
+    "node-cron": "^3.0.3",
+    "winston": "^3.13.0",
+    "joi": "^17.13.0",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "eslint": "^8.57.0"
+  }
+}
