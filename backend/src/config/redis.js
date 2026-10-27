@@ -71,6 +71,73 @@ const incrementOtpAttempts = async (phone) => {
   return count;
 };
 
+// ─── Telegram verification session helpers ─────────────────────────────────
+
+/**
+ * Store a Telegram OTP in Redis (never the raw OTP in DB).
+ * Key: tg_otp:<sessionId>
+ */
+const setTelegramOtp = async (sessionId, otp, ttlSeconds = 300) => {
+  const r = await getRedisClient();
+  await r.setEx(`tg_otp:${sessionId}`, ttlSeconds, otp);
+};
+
+const getTelegramOtp = async (sessionId) => {
+  const r = await getRedisClient();
+  return r.get(`tg_otp:${sessionId}`);
+};
+
+const deleteTelegramOtp = async (sessionId) => {
+  const r = await getRedisClient();
+  await r.del(`tg_otp:${sessionId}`);
+};
+
+/**
+ * Rate-limit Telegram link session creation per phone.
+ * Max 3 sessions per phone per hour.
+ */
+const incrementTelegramSessionAttempts = async (phone) => {
+  const r = await getRedisClient();
+  const key = `tg_session_attempts:${phone}`;
+  const count = await r.incr(key);
+  if (count === 1) await r.expire(key, 3600);
+  return count;
+};
+
+/**
+ * Cache session status for fast polling (avoids DB hits on every poll).
+ * TTL: 5 minutes (sessions expire in 10 min)
+ */
+const setTelegramSessionCache = async (sessionId, data, ttlSeconds = 300) => {
+  const r = await getRedisClient();
+  await r.setEx(`tg_session:${sessionId}`, ttlSeconds, JSON.stringify(data));
+};
+
+const getTelegramSessionCache = async (sessionId) => {
+  const r = await getRedisClient();
+  const raw = await r.get(`tg_session:${sessionId}`);
+  return raw ? JSON.parse(raw) : null;
+};
+
+const deleteTelegramSessionCache = async (sessionId) => {
+  const r = await getRedisClient();
+  await r.del(`tg_session:${sessionId}`);
+};
+
+/**
+ * Mark a linking token as used (replay protection).
+ * TTL slightly longer than session lifetime.
+ */
+const markLinkingTokenUsed = async (token, ttlSeconds = 700) => {
+  const r = await getRedisClient();
+  await r.setEx(`tg_token_used:${token}`, ttlSeconds, '1');
+};
+
+const isLinkingTokenUsed = async (token) => {
+  const r = await getRedisClient();
+  return !!(await r.get(`tg_token_used:${token}`));
+};
+
 module.exports = {
   getRedisClient,
   setGameState,
@@ -79,5 +146,15 @@ module.exports = {
   setOtp,
   getOtp,
   deleteOtp,
-  incrementOtpAttempts
+  incrementOtpAttempts,
+  // Telegram
+  setTelegramOtp,
+  getTelegramOtp,
+  deleteTelegramOtp,
+  incrementTelegramSessionAttempts,
+  setTelegramSessionCache,
+  getTelegramSessionCache,
+  deleteTelegramSessionCache,
+  markLinkingTokenUsed,
+  isLinkingTokenUsed,
 };

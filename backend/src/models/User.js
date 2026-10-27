@@ -98,10 +98,16 @@ class User {
     const res = await query(
       `SELECT id, username, full_name, avatar_url, language, role,
               balance, total_won, total_lost, games_played, games_won, score,
-              is_active, profile_complete, created_at, last_login
+              is_active, profile_complete, created_at, last_login,
+              telegram_id IS NOT NULL AS telegram_linked, telegram_username
        FROM users WHERE id = $1`,
       [id]
     );
+    return res.rows[0] || null;
+  }
+
+  static async findByTelegramId(telegramId) {
+    const res = await query('SELECT * FROM users WHERE telegram_id = $1', [telegramId]);
     return res.rows[0] || null;
   }
 }

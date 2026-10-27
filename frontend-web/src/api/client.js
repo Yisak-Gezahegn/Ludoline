@@ -54,3 +54,41 @@ export const usersAPI = {
   getHistory: (limit = 20, offset = 0) => api.get(`/users/me/history?limit=${limit}&offset=${offset}`),
   changeLanguage: (language) => api.patch('/users/me/language', { language })
 };
+
+// Telegram Verification API
+export const telegramAuthAPI = {
+  /**
+   * Start a new linking session.
+   * @param {string} phone - Ethiopian phone number
+   * @param {string} language - 'en'|'am'|'or'
+   * @returns {{ sessionId, deepLink, botName, expiresAt, expiresInSeconds }}
+   */
+  startSession: (phone, language) =>
+    api.post('/auth/telegram/start-session', { phone, language }),
+
+  /**
+   * Poll the session status.
+   * @returns {{ status: 'pending'|'linked'|'verified'|'expired'|'cancelled', ... }}
+   */
+  getSessionStatus: (sessionId, phone) =>
+    api.get('/auth/telegram/session-status', { params: { sessionId, phone } }),
+
+  /**
+   * Submit the 6-digit OTP from Telegram.
+   * @returns {{ token, user, isNew }}
+   */
+  verifyOtp: (sessionId, otp, phone, language) =>
+    api.post('/auth/telegram/verify-otp', { sessionId, otp, phone, language }),
+
+  /**
+   * Resend the OTP to the linked Telegram account.
+   */
+  resendOtp: (sessionId, phone) =>
+    api.post('/auth/telegram/resend-otp', { sessionId, phone }),
+
+  /**
+   * Cancel the current session.
+   */
+  cancel: (sessionId, phone) =>
+    api.post('/auth/telegram/cancel', { sessionId, phone })
+};

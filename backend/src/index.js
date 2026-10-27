@@ -35,6 +35,7 @@ fastify.register(require('@fastify/jwt'), {
 
 // ─── Routes ─────────────────────────────────────────────────────────────────
 fastify.register(require('./routes/auth'), { prefix: '/api/auth' });
+fastify.register(require('./routes/telegramAuth'), { prefix: '/api/auth/telegram' });
 fastify.register(require('./routes/wallet'), { prefix: '/api/wallet' });
 fastify.register(require('./routes/rooms'), { prefix: '/api/rooms' });
 fastify.register(require('./routes/users'), { prefix: '/api/users' });
